@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ges_cours/screens/home/widgets/bottom.nav.dart';
+import 'package:flutter_ges_cours/core/models/home.model.dart';
+import 'package:flutter_ges_cours/core/models/seance_model.dart';
+import 'package:flutter_ges_cours/core/services/cours.service.dart';
+import 'package:flutter_ges_cours/core/services/seance_service.dart';
 import 'package:flutter_ges_cours/screens/home/widgets/cours.widget.dart';
+import 'package:flutter_ges_cours/screens/widgets/seance_list_widget.dart';
+import 'package:flutter_ges_cours/screens/widgets/text_widget.dart';
 import 'package:flutter_ges_cours/shared/colors.constant.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,11 +13,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      Future<List<CoursModel>> coursFuture = CoursService.findAll();
+      Future<List<SeanceModel>> seancesFuture = SeanceService.findAll();
+     return Scaffold(
       backgroundColor: scaffoldbg,
-        //Botom Navigation Bar   ==> Footer
-       // bottomNavigationBar: BbwBottomNavigationBar(),
-        //Body==> Body
         body: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
@@ -30,42 +34,13 @@ class HomePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      top:40,
-                      left: 20,bottom: 20,
-                      right: 20
+                       top:40,
+                       left: 10,
+                      bottom: 20,
+                      right: 10
                     ),
                     child: Column(
                       children: [
-                       RichText(
-                         text: const TextSpan(
-                          text: 'Bienvenue ',
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'emploi du temps  ',
-                            style: TextStyle(
-                              color: yellow,
-                              letterSpacing: 1,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20
-                            ),
-                          ),
-                             TextSpan(
-                            text: ' de la semaine 👋',
-                            style: TextStyle(
-                              color: white,
-                               letterSpacing: 1,
-                               fontWeight: FontWeight.bold,
-                              fontSize: 20
-                            ),
-                          ),
-
-                        ],
-                      ),),
                      const  SizedBox(height: 20,),
                      Container(
                       padding: const EdgeInsets.symmetric(horizontal:12,vertical: 8 ),
@@ -98,8 +73,23 @@ class HomePage extends StatelessWidget {
                       ),
                      
                      ),  
+                      const  SizedBox(height: 20,),
+                       RichText(
+                         text: const TextSpan(
+                          text: 'Modules du Semestre',
+                          style: TextStyle(
+                          color: yellow,
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      
+                      ),),
                        const  SizedBox(height: 20,),
-                          BbwCoursWidget()
+                          BbwCoursWidget(datas: coursFuture,), 
+                          const  SizedBox(height: 20,),
+                          textButton(text: "Les Cours de la journee", textColor: Colors.black,size: 20,bold:FontWeight.bold),
+                           const  SizedBox(height: 8,),
+                           SeanceList(datas: seancesFuture,)
                       ],
                       ),
                   ),))

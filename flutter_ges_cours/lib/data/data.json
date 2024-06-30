@@ -1,0 +1,14 @@
+{
+    "status": "STARTED",
+    "professor": "Professor 1",
+    "classRoom": {
+    "nom": "Classe 1",
+    "id": 1
+    },
+    "totalHeure": 30,
+    "totalHeurePlanifier": 4,
+    "totalHeureRealiser": 26,
+    "icon": "https://img.freepik.com/free-vector/designer-girl-concept-illustration_114360-4455.jpg?w=2000",
+    "module": "Module1",
+    "id": 1
+    }
